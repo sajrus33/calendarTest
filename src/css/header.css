@@ -1,0 +1,24 @@
+.header {
+  position: relative;
+  height: 70px;
+}
+
+.header__h {
+  flex-basis: calc(100% / 3);
+
+  align-self: flex-start;
+}
+.header__date {
+  flex-basis: calc(100% / 3);
+  align-self: flex-end;
+  text-align: center;
+}
+.header__a {
+  color: black;
+}
+.header__tools {
+  flex-basis: calc(100% / 3);
+  align-self: flex-end;
+  height: 100%;
+  background-color: #000;
+}
