@@ -72,6 +72,7 @@
 .main__element--hour:nth-child(odd),
 .main__element--header:nth-child(3) {
   background-color: var(--greyLight);
+  background-color: rgba(242, 242, 242, 1);
 }
 .main__day {
   position: relative;

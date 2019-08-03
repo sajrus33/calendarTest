@@ -11,11 +11,9 @@
   --greyLight: rgba(242, 242, 242, 1);
   --blueLight: rgba(214, 236, 255, 1);
   --blue: rgba(147, 215, 251, 1);
-  --orangeLight: rgba(253, 212, 102, 1);
+  --orange: rgba(253, 212, 102, 1);
 }
 body {
-  /* font-family: "Roboto", sans-serif; */
-  /* font-family: Arial, Helvetica, sans-serif; */
   font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
 }
 

@@ -3,11 +3,10 @@
   left: 50%;
   width: calc(100% - 2px);
   transform: translate(-50%, 1px);
-  padding: 1px;
   border: 1px solid white;
   font-size: 0.9rem;
 }
-.main__activity--lBlue {
+.main__activity--blueL {
   background-color: rgba(214, 236, 255, 1);
   background-color: var(--blueLight);
 }
@@ -20,27 +19,64 @@
   background-color: var(--orange);
 }
 
+/* day 1 */
+
 .main__day--1 > .main__activity:nth-child(1) {
   top: calc(130px * 0.5);
-  height: calc(130px * 0.75);
+  min-height: calc(130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(2) {
   top: calc(130px * 1.25);
-  height: calc(130px * 0.75);
+  min-height: calc(130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(3) {
   top: calc(130px * 2);
-  height: calc(130px * 0.75);
+  min-height: calc(130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(4) {
   top: calc(130px * 2.75);
-  height: calc(130px * 0.5);
+  min-height: calc(130px * 0.5);
 }
 .main__day--1 > .main__activity:nth-child(5) {
   top: calc(130px * 4.25);
-  height: calc(130px * 0.75);
+  min-height: calc(130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(6) {
   top: calc(130px * 5);
-  height: calc(130px * 0.75);
+  min-height: calc(130px * 0.75);
+}
+
+/* day 2 */
+
+.main__day--2 > .main__activity:nth-child(1) {
+  top: calc(130px * 0);
+  min-height: calc(130px * 0.25);
+}
+.main__day--2 > .main__activity:nth-child(2) {
+  top: calc(130px * 0.25);
+  min-height: calc(130px * 0.5);
+}
+.main__day--2 > .main__activity:nth-child(3) {
+  top: calc(130px * 0.75);
+  min-height: calc(130px * 0.5);
+}
+.main__day--2 > .main__activity:nth-child(4) {
+  top: calc(130px * 1.25);
+  min-height: calc(130px * 0.25);
+}
+.main__day--2 > .main__activity:nth-child(5) {
+  top: calc(130px * 2.25);
+  min-height: calc(130px * 0.5);
+}
+.main__day--2 > .main__activity:nth-child(6) {
+  top: calc(130px * 2.75);
+  min-height: calc(130px * 0.75);
+}
+.main__day--2 > .main__activity:nth-child(7) {
+  top: calc(130px * 3.75);
+  min-height: calc(130px * 0.5);
+}
+.main__day--2 > .main__activity:nth-child(8) {
+  top: calc(130px * 4.25);
+  min-height: calc(130px * 0.5);
 }
