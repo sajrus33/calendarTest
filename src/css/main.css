@@ -1,0 +1,44 @@
+/* 
+"main__wrapper main__wrapper--header">
+            <div class="main__element">Urzheit</div>
+            <div class="main__elemen 
+            */
+.main {
+  margin-top: 70px;
+  height: 100%;
+  width: 100%;
+}
+.main__header {
+  display: flex;
+}
+.main__element {
+  min-width: 105px;
+  width: 105px;
+  border: 1px solid grey;
+  border-right: none;
+  border-bottom: none;
+}
+.main__element--header {
+  height: 40px;
+  padding: 10px 25px;
+  font-weight: 600;
+  white-space: nowrap;
+  border-top: none;
+}
+.main__element:last-child {
+  border-right: 1px solid grey;
+}
+
+.main__main {
+  display: flex;
+}
+.main__element--hour:last-child {
+  border-right: none;
+}
+.main__element--hour {
+  min-height: 130px;
+}
+
+.main__day:last-child > .main__element--hour {
+  border-right: 1px solid grey;
+}
