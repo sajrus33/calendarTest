@@ -1,12 +1,11 @@
 {
-  "name": "weather-widget",
+  "name": "calendarTest",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.2.0",
-    "gulp-cli": "^2.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-watch": "^5.0.1"
   },
@@ -14,7 +13,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sajrus33/calendarTest.git"
+  },
   "keywords": [],
-  "author": "yo",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sajrus33/calendarTest/issues"
+  },
+  "homepage": "https://github.com/sajrus33/calendarTest#readme"
 }
