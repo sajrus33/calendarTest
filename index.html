@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>calendarTest</title>
-    <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="public/css/style.css" />
+    <!-- <link rel="stylesheet" href="public/css/style.css" /> -->
+    <link rel="stylesheet" href="src/css/start.css" />
+
+    <link rel="stylesheet" href="src/css/header.css" />
+    <link rel="stylesheet" href="src/css/main.css" />
+    <link rel="stylesheet" href="src/css/activities.css" />
+
+
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -14,6 +20,7 @@
       crossorigin="anonymous"
     />
     <!-- <i class="far fa-smile"></i> -->
+    <!-- <i class="far fa-times-circle"></i> -->
   </head>
   <body>
       <div class="modal">
@@ -32,8 +39,12 @@
           </a>
         </span>
         <div class="header__tools flexCol">
-          <i class="fas fa-text-width"></i>
-          <i class="fas fa-calendar-alt"></i>
+            <a href="#" class="header__tool">
+                <i class="fas fa-text-width"></i>
+            </a>
+          <a href="#" class="header__tool">
+                <i class="fas fa-calendar-alt"></i>
+          </a>
         </div>
       </section>
       <!-- main -->
@@ -77,7 +88,31 @@
                 <div class="main__element main__element--hour">15:00</div>
                 <div class="main__element main__element--hour">16:00</div>
             </div>
-            <div class="main__day">
+            <div class="main__day main__day--1">
+                <div class="main__activity main__activity--lBlue">
+                    <span class="activity__hour">08:30-09:15</span>
+                    <p class="activity__p">Hessling</p>
+                </div>
+                <div class="main__activity main__activity--lBlue">
+                    <span class="activity__hour">09:15-10:00</span>
+                    <p class="activity__p">Mittermeier</p>
+                </div>
+                <div class="main__activity main__activity--lBlue">
+                    <span class="activity__hour">10:00-10:45</span>
+                    <p class="activity__p">Diederichs</p>
+                </div>
+                <div class="main__activity main__activity--lBlue">
+                    <span class="activity__hour">10:45-11:15</span>
+                    <p class="activity__p">Metzger</p>
+                </div>
+                <div class="main__activity main__activity--lBlue">
+                    <span class="activity__hour">12:15-13:00</span>
+                    <p class="activity__p">Mittermeier</p>
+                </div>
+                <div class="main__activity main__activity--lBlue">
+                    <span class="activity__hour">13:00-13:45</span>
+                    <p class="activity__p">Metzger</p>
+                </div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
@@ -88,7 +123,39 @@
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
             </div>
-            <div class="main__day">
+            <div class="main__day main__day--2">
+                    <div class="main__activity main__activity--lBlue">
+                            <span class="activity__hour">08:00-08:15</span>
+                            <p class="activity__p">Meier</p>
+                        </div>
+                        <div class="main__activity main__activity--lBlue">
+                            <span class="activity__hour">08:15-08:45</span>
+                            <p class="activity__p">Augstein</p>
+                        </div>
+                        <div class="main__activity main__activity--lBlue">
+                            <span class="activity__hour">08:45-9:15</span>
+                            <p class="activity__p">Kuminek</p>
+                        </div>
+                        <div class="main__activity main__activity--lBlue">
+                            <span class="activity__hour">09:15-09:30</span>
+                            <p class="activity__p">Erhardt</p>
+                        </div>
+                        <div class="main__activity main__activity--orange">
+                            <span class="activity__hour">10:15-10:45</span>
+                            <p class="activity__p">Lange</p>
+                        </div>
+                        <div class="main__activity main__activity--blue">
+                            <span class="activity__hour">10:45-11:30</span>
+                            <p class="activity__p">Schwabe</p>
+                        </div>
+                        <div class="main__activity main__activity--blue">
+                            <span class="activity__hour">11:45-12:15</span>
+                            <p class="activity__p">Buckmaster</p>
+                        </div>
+                        <div class="main__activity main__activity--blue">
+                            <span class="activity__hour">12:15-12:45</span>
+                            <p class="activity__p">Gheorghiu</p>
+                        </div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
@@ -99,7 +166,7 @@
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
             </div>
-            <div class="main__day">
+            <div class="main__day main__day--3">
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
@@ -110,7 +177,7 @@
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
             </div>
-            <div class="main__day">
+            <div class="main__day main__day--4">
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
@@ -121,7 +188,7 @@
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
             </div>
-            <div class="main__day">
+            <div class="main__day main__day--5">
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
@@ -132,7 +199,7 @@
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
             </div>
-            <div class="main__day">
+            <div class="main__day main__day--6">
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
@@ -143,7 +210,7 @@
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
             </div>
-            <div class="main__day">
+            <div class="main__day main__day--7">
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
                 <div class="main__element main__element--hour"></div>
