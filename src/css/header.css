@@ -12,11 +12,14 @@
   flex-basis: calc(100% / 3);
 
   align-self: flex-start;
+  font-size: 1.7rem;
+  font-weight: 400;
 }
 .header__date {
   flex-basis: calc(100% / 3);
   align-self: flex-end;
   text-align: center;
+  font-size: 1.1rem;
 }
 .header__a {
   color: black;

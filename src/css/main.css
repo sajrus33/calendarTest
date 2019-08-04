@@ -69,10 +69,19 @@
   padding-top: 5px;
 }
 
-.main__element--hour:nth-child(odd),
+.main__element--hour:nth-child(2n + 1),
 .main__element--header:nth-child(3) {
   background-color: var(--greyLight);
   background-color: rgba(242, 242, 242, 1);
+  /* background-color: #000; */
+}
+.main__day:nth-of-type(7) > .main__element {
+  background-color: transparent;
+}
+.main__day:nth-of-type(7) > .main__element:nth-of-type(2n) {
+  background-color: var(--greyLight);
+  background-color: rgba(242, 242, 242, 1);
+  /* background-color: blue; */
 }
 .main__day {
   position: relative;

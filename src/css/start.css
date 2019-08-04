@@ -15,6 +15,7 @@
 }
 body {
   font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+  background-color: gray;
 }
 
 /* flex Classes */
@@ -34,15 +35,16 @@ body {
 
 /* widget container */
 
-.calendar {
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-}
 .modal {
   position: relative;
   width: 600px;
   height: 600px;
   overflow: hidden;
+  background-color: #fff;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.calendar {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
