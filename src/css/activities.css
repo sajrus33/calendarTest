@@ -1,12 +1,16 @@
 .main__activity {
   position: absolute;
-  left: 50%;
-  width: calc(100% - 2px);
-  transform: translate(-50%, 2px);
+  left: 1px;
+  right: 1px;
+
+  transform: translate(0px, 1px);
   padding: 1px;
   font-size: 0.8rem;
   cursor: pointer;
+  border: 1px white solid;
+  z-index: 2;
 }
+
 
 .main__activity:hover .activity__ico {
   color: transparent;
@@ -26,6 +30,10 @@
   background-color: rgba(253, 212, 102, 1);
   background-color: var(--orange);
 }
+
+.activity__p{
+  font-size: 0.75rem;
+}
 .activity__ico {
   position: absolute;
   bottom: 0;
@@ -40,147 +48,147 @@
 
 .main__day--1 > .main__activity:nth-child(1) {
   top: calc(130px * 0.5);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(2) {
   top: calc(130px * 1.25);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(3) {
   top: calc(130px * 2);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(4) {
   top: calc(130px * 2.75);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--1 > .main__activity:nth-child(5) {
   top: calc(130px * 4.25);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 .main__day--1 > .main__activity:nth-child(6) {
   top: calc(130px * 5);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 
 /* day 2 */
 
 .main__day--2 > .main__activity:nth-child(1) {
   top: calc(130px * 0);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--2 > .main__activity:nth-child(2) {
   top: calc(130px * 0.25);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--2 > .main__activity:nth-child(3) {
   top: calc(130px * 0.75);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--2 > .main__activity:nth-child(4) {
   top: calc(130px * 1.25);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--2 > .main__activity:nth-child(5) {
   top: calc(130px * 2.25);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--2 > .main__activity:nth-child(6) {
   top: calc(130px * 2.75);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 .main__day--2 > .main__activity:nth-child(7) {
   top: calc(130px * 3.75);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--2 > .main__activity:nth-child(8) {
   top: calc(130px * 4.25);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 /* day 3 */
 
 .main__day--3 > .main__activity:nth-child(1) {
   top: calc(130px * 0);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--3 > .main__activity:nth-child(2) {
   top: calc(130px * 0.5);
-  height: calc((-2px) + 130px * 1);
+  height: calc((-1px) + 130px * 1);
 }
 .main__day--3 > .main__activity:nth-child(3) {
   top: calc(130px * 1.5);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--3 > .main__activity:nth-child(4) {
   top: calc(130px * 2);
-  height: calc((-2px) + 130px * 1);
+  height: calc((-1px) + 130px * 1);
 }
 
 .main__day--3 > .main__activity:nth-child(5) {
   top: calc(130px * 3.25);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--3 > .main__activity:nth-child(6) {
   top: calc(130px * 3.5);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 
 /* day 4 */
 
 .main__day--4 > .main__activity:nth-child(1) {
   top: calc(130px * 0.75);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--4 > .main__activity:nth-child(2) {
   top: calc(130px * 1.25);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--4 > .main__activity:nth-child(3) {
   top: calc(130px * 2.25);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--4 > .main__activity:nth-child(4) {
   top: calc(130px * 2.75);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 
 .main__day--4 > .main__activity:nth-child(5) {
   top: calc(130px * 4);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--4 > .main__activity:nth-child(6) {
   top: calc(130px * 4.75);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 
 /* day 5 */
 
 .main__day--5 > .main__activity:nth-child(1) {
   top: calc(130px * 0);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--5 > .main__activity:nth-child(2) {
   top: calc(130px * 0.5);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--5 > .main__activity:nth-child(3) {
   top: calc(130px * 1.5);
-  height: calc((-2px) + 130px * 0.25);
+  height: calc((-1px) + 130px * 0.25);
 }
 .main__day--5 > .main__activity:nth-child(4) {
   top: calc(130px * 2);
-  height: calc((-2px) + 130px * 0.75);
+  height: calc((-1px) + 130px * 0.75);
 }
 
 .main__day--5 > .main__activity:nth-child(5) {
   top: calc(130px * 3.25);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--5 > .main__activity:nth-child(6) {
   top: calc(130px * 4);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
 .main__day--5 > .main__activity:nth-child(7) {
   top: calc(130px * 5);
-  height: calc((-2px) + 130px * 0.5);
+  height: calc((-1px) + 130px * 0.5);
 }
