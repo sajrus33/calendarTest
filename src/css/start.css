@@ -48,3 +48,26 @@ body {
   width: 100%;
   overflow: auto;
 }
+.calendar::-webkit-scrollbar-track
+{
+  border-radius: 10px;
+	background-color: transparent;
+}
+
+.calendar::-webkit-scrollbar
+{
+
+	width: 16px;
+	background-color: transparent;
+}
+
+.calendar::-webkit-scrollbar-thumb
+{
+
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.calendar::-webkit-scrollbar-thumb:hover
+{
+	background-color: rgba(0, 0, 0, 0.6);
+}
