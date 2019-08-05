@@ -1,10 +1,12 @@
 .header {
   position: absolute;
   height: 70px;
-  width: calc(100% - 15px);
+  width: calc(100% - 16px);
   padding: 5px;
   background-color: #fff;
   border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+
   z-index: 4;
 }
 
