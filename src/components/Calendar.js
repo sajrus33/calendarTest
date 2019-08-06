@@ -5,32 +5,42 @@ import "../css/start.css";
 import "../css/header.css";
 import "../css/main.css";
 import "../css/activities.css";
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
 
 const Calendar = props => {
 
 
     const hours = [
         "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
-        "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "01:00", "02:00", "03:00", "04:00",
-        "05:00", "06:00", "07:00"
+        "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"
     ];
     const activities = [
         [
             {
-                hour: "08:15-08:30",
+                hour: "08:45-09:00",
                 txt: "Metzger",
-                bgc: "(var(--blue))",
-
+                bgc: "var(--blueLight)",
                 like: true,
             },
             {
-                hour: "10:45-11:15",
+                hour: "09:15-10:30",
+                txt: "Metzger",
+                bgc: "var(--orange)",
+                unlike: true
+            },
+            {
+                hour: "10:45-11:00",
                 txt: "Mittermeier",
-                bgc: "(var(--blue))",
-
-                like: false,
+                bgc: "var(--blue)",
+            },
+            {
+                hour: "11:45-13:30",
+                txt: "Mittermeier",
+                bgc: "var(--blue)",
             }
-        ]
+        ],
+
 
 
     ];
