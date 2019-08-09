@@ -58,7 +58,7 @@
   border-right: none;
 }
 .main__element--hour {
-  min-height: 130px;
+  height: 130px;
   text-align: center;
   padding-top: 5px;
 }

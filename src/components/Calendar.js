@@ -99,10 +99,8 @@ class Calendar extends Component {
 
             const topMin = startMin / 60 / .25;
             console.log(topMin);
-            let dropSpotTime = ((startHour - start) * 4) + topMin;
-            if (dropSpotTime < 10) {
-                dropSpotTime = "0" + dropSpotTime;
-            }
+            let dropSpotTime = String(startHour - start) + topMin;
+
             dropSpotTime = String(dropSpotTime);
             return dropSpotTime
         };
@@ -111,7 +109,6 @@ class Calendar extends Component {
                 day.forEach(activity => {
                     if (!activity.dropSpot) {
                         activity.dropSpot = "id" + dayI + this.getDropSpot(activity.hour);
-
                     }
                 });
             })
@@ -119,27 +116,8 @@ class Calendar extends Component {
             this.setState({
                 activities: this.state.activities
             });
-            console.log(this.state.activities);
         }
-        this.createActivities = () => {
-            const daysActivities = [];
-            this.state.activities.forEach((dayActivites, dI) => {
-                const newDayActivities = [];
-                dayActivites.forEach((activity, i) => {
-                    if (activity) {
-                        newDayActivities.push(
-                            <Activity handleDragStart={this.handleDragStartActivity} id={"id" + dI + i} key={"id" + dI + i} activity={activity}></Activity>
-                        )
-                    }
-                });
 
-                daysActivities.push(newDayActivities)
-            })
-            this.setState({
-                daysActivities: daysActivities
-            })
-
-        }
         this.createHours = (addTxt = false, propsHours = this.hours) => {
             const newHours = [];
             propsHours.forEach((hour, i) => {
@@ -152,17 +130,26 @@ class Calendar extends Component {
 
         this.createDropElements = (propsHours = this.hours) => {
             this.getDropSpots();
-            console.log("creatig drops");
             const newDrops = [];
-            for (let i = 0; i < 7; i++) {
+            for (let dI = 0; dI < 7; dI++) {
                 const newDropsDay = [];
                 propsHours.forEach((hour, hI) => {
                     for (let nI = 0; nI < 4; nI++) {
-                        const id = "id" + i + hI + nI;
-                        // this.state.activities[dI][nI]
+                        const id = "id" + dI + hI + nI;
+                        let suitableSpot = false;
+
+                        this.state.activities[dI].forEach((dayActivity, aI) => {
+                            if (dayActivity.dropSpot === id) {
+                                suitableSpot = this.state.activities[dI][aI];
+
+                            }
+                        })
+
                         newDropsDay.push(
                             <div onDrop={this.handleDropActivity} onDragOver={this.handleDragOverActivity} className="main__drop" id={id} key={id}>
-
+                                {suitableSpot
+                                    ? <Activity handleDragStart={this.handleDragStartActivity} id={"acti" + id} key={"acti" + id} activity={suitableSpot}></Activity>
+                                    : null}
                             </div>
                         )
                     }
@@ -206,7 +193,7 @@ class Calendar extends Component {
             this.setState({
                 activities: activities
             });
-            this.createActivities();
+            this.dropElements = this.createDropElements();
         }
     }
 
@@ -217,7 +204,7 @@ class Calendar extends Component {
         this.hoursElementsDescribed = this.createHours(true);
     }
     componentDidMount() {
-        this.createActivities();
+
     }
     componentDidUpdate() {
         console.log("update calendar");

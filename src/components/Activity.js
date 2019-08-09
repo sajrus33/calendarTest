@@ -9,7 +9,6 @@ class Activity extends Component {
             height: null
         }
         this.getHeight = (activityHours) => {
-            const start = 8;
             const activityHeight = 130;
 
             const hours = activityHours.split("-");
