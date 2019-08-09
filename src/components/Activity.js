@@ -8,8 +8,7 @@ class Activity extends Component {
             top: null,
             height: null
         }
-
-        this.getTopHeight = (activityHours) => {
+        this.getHeight = (activityHours) => {
             const start = 8;
             const activityHeight = 130;
 
@@ -31,43 +30,29 @@ class Activity extends Component {
                 durationMin = (60 - startMin) + endMin;
             }
 
-            const topMin = startMin / 60 * activityHeight;
-
-            const top = String((Math.abs(start - startHour) * activityHeight) + topMin - 1) + "px";
-
             const heightMin = durationMin / 60 * activityHeight;
 
             const height = String((durationHour * activityHeight) + heightMin - 1) + "px";
-            return [top, height]
+            return height
         };
-        this.handleDragStart = this.props.handleDragStart;
-        this.id = this.props.id;
+
     }
 
-
-
-
-
     componentWillMount() {
-        const activity = this.props.activity;
-
-        const topHeight = this.getTopHeight(activity.hour);
-        const top = topHeight[0];
-        const height = topHeight[1];
-
+        const height = this.getHeight(this.props.activity.hour);
         this.setState({
-            top: top,
             height: height
         })
     }
+
     render() {
 
         return (
             <div
-                id={this.id}
+                id={this.props.id}
                 draggable="true"
-                onDragStart={this.handleDragStart}
-                className="main__activity" style={{ backgroundColor: this.props.activity.bgc, top: this.state.top, height: this.state.height }}>
+                onDragStart={this.props.handleDragStart}
+                className="main__activity" style={{ backgroundColor: this.props.activity.bgc, height: this.state.height }}>
                 <span className="activity__hour">{this.props.activity.hour}</span>
                 <p className="activity__p">{this.props.activity.txt}</p>
                 {this.props.activity.like ? (<i className="far fa-smile activity__ico"></i>) : null}

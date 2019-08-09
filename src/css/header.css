@@ -7,7 +7,7 @@
   border-bottom: 1px solid grey;
   border-right: 1px solid grey;
 
-  z-index: 4;
+  z-index: 999;
 }
 
 .header__h {

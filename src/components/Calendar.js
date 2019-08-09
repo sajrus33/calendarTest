@@ -86,6 +86,41 @@ class Calendar extends Component {
             "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
             "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"
         ];
+        this.getDropSpot = (activityHours = this.state.activities[0][0].hour) => {
+            const start = 8;
+
+            const hours = activityHours.split("-");
+
+            const startTime = hours[0].split(":");
+
+            const startHour = Number(startTime[0]);
+            const startMin = Number(startTime[1]);
+
+
+            const topMin = startMin / 60 / .25;
+            console.log(topMin);
+            let dropSpotTime = ((startHour - start) * 4) + topMin;
+            if (dropSpotTime < 10) {
+                dropSpotTime = "0" + dropSpotTime;
+            }
+            dropSpotTime = String(dropSpotTime);
+            return dropSpotTime
+        };
+        this.getDropSpots = () => {
+            this.state.activities.forEach((day, dayI) => {
+                day.forEach(activity => {
+                    if (!activity.dropSpot) {
+                        activity.dropSpot = "id" + dayI + this.getDropSpot(activity.hour);
+
+                    }
+                });
+            })
+
+            this.setState({
+                activities: this.state.activities
+            });
+            console.log(this.state.activities);
+        }
         this.createActivities = () => {
             const daysActivities = [];
             this.state.activities.forEach((dayActivites, dI) => {
@@ -93,7 +128,7 @@ class Calendar extends Component {
                 dayActivites.forEach((activity, i) => {
                     if (activity) {
                         newDayActivities.push(
-                            <Activity handleDragStart={this.handleDragActivity} id={"id" + dI + i} key={"id" + dI + i} activity={activity}></Activity>
+                            <Activity handleDragStart={this.handleDragStartActivity} id={"id" + dI + i} key={"id" + dI + i} activity={activity}></Activity>
                         )
                     }
                 });
@@ -116,13 +151,19 @@ class Calendar extends Component {
         };
 
         this.createDropElements = (propsHours = this.hours) => {
+            this.getDropSpots();
+            console.log("creatig drops");
             const newDrops = [];
             for (let i = 0; i < 7; i++) {
                 const newDropsDay = [];
                 propsHours.forEach((hour, hI) => {
                     for (let nI = 0; nI < 4; nI++) {
+                        const id = "id" + i + hI + nI;
+                        // this.state.activities[dI][nI]
                         newDropsDay.push(
-                            <div onDrop={this.handleDropActivity} onDragOver={this.handleDragOverActivity} className="main__drop" id={"id" + i + hI + nI} key={"id" + i + hI + nI}> </div>
+                            <div onDrop={this.handleDropActivity} onDragOver={this.handleDragOverActivity} className="main__drop" id={id} key={id}>
+
+                            </div>
                         )
                     }
                 });
@@ -132,22 +173,26 @@ class Calendar extends Component {
         };
 
         this.handleDropActivity = (e) => {
-            let top = e.target.style.top;
-            const pxIndex = top.indexOf("px");
-            top = top.slice(0, pxIndex);
-            // this.state.activities[0].forEach(activity => {
-            //     console.log(activity.hour);
-            // });
             e.preventDefault();
             var data = e.dataTransfer.getData("text");
-            e.target.appendChild(document.getElementById(data));
+            const draggedElement = document.getElementById(data);
+            if (draggedElement) {
+                draggedElement.style.top = "0px";
+                e.target.appendChild(draggedElement);
+            }
+            document.querySelectorAll(".main__drop").forEach(drop => {
+                drop.classList.remove("main__drop--active")
+            })
         };
         this.handleDragOverActivity = (e) => {
             e.preventDefault();
         };
-        this.handleDragActivity = (e) => {
+        this.handleDragStartActivity = (e) => {
             e.dataTransfer.setData("text", e.target.id);
             console.log(e.target.id, "ID");
+            document.querySelectorAll(".main__drop").forEach(drop => {
+                drop.classList.add("main__drop--active")
+            })
         };
         this.handleBtnAddTask = () => {
             this.state.activities[3].push({
@@ -158,28 +203,25 @@ class Calendar extends Component {
             });
             const activities = this.state.activities;
 
-            console.log(activities);
             this.setState({
                 activities: activities
             });
             this.createActivities();
-
-            // console.log(this.state.activities[3]);
-            // console.log("btn");
         }
     }
 
     componentWillMount() {
         console.log("before mount calendar")
-        this.createActivities();
         this.hoursElements = this.createHours(false);
         this.dropElements = this.createDropElements();
-        console.log(this.dropElements);
         this.hoursElementsDescribed = this.createHours(true);
     }
-
+    componentDidMount() {
+        this.createActivities();
+    }
     componentDidUpdate() {
-        console.log("update calendar")
+        console.log("update calendar");
+
     }
 
 
@@ -229,65 +271,49 @@ class Calendar extends Component {
                                 </div>
                                 {this.hoursElementsDescribed}
                             </div>
-
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.state.daysActivities[0] ? this.state.daysActivities[0] : null}
                                     {this.dropElements[0]}
                                 </div>
                                 {this.hoursElements}
                             </div>
-
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.state.daysActivities[1] ? this.state.daysActivities[1] : null}
                                     {this.dropElements[1]}
 
                                 </div>
                                 {this.hoursElements}
                             </div>
-
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.state.daysActivities[2] ? this.state.daysActivities[2] : null}
                                     {this.dropElements[2]}
                                 </div>
                                 {this.hoursElements}
                             </div>
-
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.state.daysActivities[3] ? this.state.daysActivities[3] : null}
                                     {this.dropElements[3]}
                                 </div>
                                 {this.hoursElements}
                             </div>
-
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.state.daysActivities[4] ? this.state.daysActivities[4] : null}
                                     {this.dropElements[4]}
                                 </div>
                                 {this.hoursElements}
                             </div>
-
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.state.daysActivities[5] ? this.state.daysActivities[5] : null}
                                     {this.dropElements[5]}
                                 </div>
                                 {this.hoursElements}
                             </div>
-
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.state.daysActivities[6] ? this.state.daysActivities[6] : null}
                                     {this.dropElements[6]}
                                 </div>
                                 {this.hoursElements}
                             </div>
-
-
                         </div>
                     </div>
                 </div>
