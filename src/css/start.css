@@ -46,6 +46,7 @@ body {
 .calendar {
   height: 100%;
   width: 100%;
+
   overflow: auto;
 }
 .calendar::-webkit-scrollbar-track

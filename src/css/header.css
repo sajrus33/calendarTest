@@ -17,9 +17,30 @@
   font-size: 1.7rem;
   font-weight: 400;
 }
-.header__date {
+.header__wrapper--date{
+  height: 100%;
   flex-basis: calc(100% / 3);
-  align-self: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__btn{
+  background-color: #fff;
+  color: #fff;
+  font-size: .9rem;
+  padding: 5px 15px;
+  /* height: 35px; */
+  /* width: 35px; */
+  cursor: pointer;
+  text-transform: uppercase;
+text-decoration: none;
+  background: #60a3bc;
+  border-radius: 20px;
+  transition:  0.1s ease ;
+}
+.header__btn:hover{
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+}
+.header__date {
   text-align: center;
   font-size: 1.1rem;
 }
