@@ -87,6 +87,7 @@ class Calendar extends Component {
             "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"
         ];
         this.createActivities = () => {
+            const daysActivities = [];
             this.state.activities.forEach((dayActivites, dI) => {
                 const newDayActivities = [];
                 dayActivites.forEach((activity, i) => {
@@ -96,8 +97,13 @@ class Calendar extends Component {
                         )
                     }
                 });
-                this.state.daysActivities.push(newDayActivities)
+
+                daysActivities.push(newDayActivities)
             })
+            this.setState({
+                daysActivities: daysActivities
+            })
+
         }
         this.createHours = (addTxt = false, propsHours = this.hours) => {
             const newHours = [];
@@ -143,7 +149,24 @@ class Calendar extends Component {
             e.dataTransfer.setData("text", e.target.id);
             console.log(e.target.id, "ID");
         };
-        this.handleBtnAddTask = () => { }
+        this.handleBtnAddTask = () => {
+            this.state.activities[3].push({
+                hour: "08:00-09:00",
+                txt: "Metzger",
+                bgc: "var(--blueLight)",
+                like: true,
+            });
+            const activities = this.state.activities;
+
+            console.log(activities);
+            this.setState({
+                activities: activities
+            });
+            this.createActivities();
+
+            // console.log(this.state.activities[3]);
+            // console.log("btn");
+        }
     }
 
     componentWillMount() {
@@ -157,7 +180,6 @@ class Calendar extends Component {
 
     componentDidUpdate() {
         console.log("update calendar")
-        this.createActivities();
     }
 
 
@@ -169,7 +191,7 @@ class Calendar extends Component {
                     <section className="header flexRow">
                         <h4 className="header__h">Terminplaner</h4>
                         <div className="header__wrapper--date flexCol">
-                            <button className="header__btn">Add task</button>
+                            <button onClick={this.handleBtnAddTask} className="header__btn">Add task</button>
                             <span className="header__date">
                                 <a href="/#" className="header__a">
                                     <i className="fas fa-chevron-left"></i>
