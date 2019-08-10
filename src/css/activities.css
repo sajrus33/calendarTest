@@ -44,12 +44,7 @@
   z-index: 98;
 }
 
-.main__activity:hover .activity__ico {
-  color: transparent;
-}
-.main__activity:hover .activity__ico--delete {
-  color: black;
-}
+
 .main__activity--blueL {
   background-color: rgba(214, 236, 255, 1);
   background-color: var(--blueLight);
@@ -69,11 +64,24 @@
 .activity__ico {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 0px;
   transform: translate(-1px, -1px);
+  font-size: .9rem;
+  transition: .2s linear;
+
 }
 .activity__ico--delete {
-  color: transparent;
+  opacity: 0;
+  right:0px;
+  transform: translate(-1px, -1px);
+  transition: .2s  linear;
+
 }
 
-
+.main__activity:hover .activity__ico {
+  right: 15px;
+}
+.main__activity:hover .activity__ico--delete {
+  right: 0px;
+  opacity: 1;
+}

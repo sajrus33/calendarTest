@@ -13,6 +13,7 @@ class Calendar extends Component {
         super(props)
         this.state = {
             daysActivities: [],
+            showModal: false
         };
         this.hours = [
             "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
@@ -115,7 +116,6 @@ class Calendar extends Component {
             this.activities.forEach((day, dayI) => {
                 day.forEach(activity => {
                     const dropSpot = this.getDropSpot(activity.hour);
-                    console.log({ dropSpot })
                     activity.dropSpot = "id" + dayI + dropSpot[0];
                     activity.height = dropSpot[1];
                 });
@@ -172,19 +172,46 @@ class Calendar extends Component {
             var data = e.dataTransfer.getData("text");
             const draggedElement = document.getElementById(data);
             const parent = e.target;
+
             if (draggedElement && !parent.childNodes[1]) {
-                // parent.appendChild(draggedElement);
                 const draggedElementDropSpot = draggedElement.id.slice(4);
-                this.activities.forEach(day => {
-                    day.forEach(activity => {
+                this.activities.forEach((day, dI) => {
+                    day.forEach((activity, aI) => {
                         if (activity.dropSpot === draggedElementDropSpot) {
                             const activityStartTime = parent.childNodes[0].textContent;
-                            const activityEndTime = "10:00";
+
+                            const pxI = activity.height.indexOf("px");
+                            const height = activity.height.slice(0, pxI);
+                            let hoursEnd = ((Number(height) + 1) / 32.5) / 4;
+                            let minsEnd = hoursEnd % 1;
+                            hoursEnd = hoursEnd - minsEnd;
+                            minsEnd *= 60;
+                            const hoursStart = Number(activityStartTime.slice(0, 2));
+                            const minsStart = Number(activityStartTime.slice(3));
+
+                            minsEnd += minsStart;
+                            if (minsEnd >= 60) {
+                                hoursEnd += hoursStart + 1;
+                                minsEnd = minsEnd % 60;
+                                if (minsEnd == 0)
+                                    minsEnd = String(minsEnd) + 0;
+                            } else {
+                                hoursEnd += hoursStart;
+                            }
+                            const activityEndTime = `${hoursEnd}:${minsEnd}`;
                             activity.hour = activityStartTime + "-" + activityEndTime;
-                            console.log(this.activities);
+
+                            const parentDay = parent.id.slice(2, 3)
+                            if (parentDay != dI) {
+                                const transferActivity = activity;
+                                this.activities[dI].splice(aI, 1)
+                                this.activities[parentDay].push(transferActivity);
+                            }
+
                             this.setState({
                                 dropElements: this.createDropElements()
                             });
+
                         }
                     });
                 });
@@ -208,16 +235,10 @@ class Calendar extends Component {
         };
 
         this.handleBtnAddTask = () => {
-            this.activities[3].push({
-                hour: "08:30-09:30",
-                txt: "Metzger",
-                bgc: "var(--blueLight)",
-                like: true,
-            });
 
 
             this.setState({
-                dropElements: this.createDropElements()
+                showModal: true,
             });
         };
 
