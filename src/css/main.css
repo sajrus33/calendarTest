@@ -76,6 +76,8 @@
 .main__day--hours > .main__element--hour:nth-of-type(even){
 background-color: #fff;
 }
-
+.main__element--hour:last-of-type{
+  border-bottom: 1px grey solid;
+}
 
 

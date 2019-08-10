@@ -86,7 +86,10 @@ class Calendar extends Component {
             "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
             "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"
         ];
+        console.log("constructor");
         this.getDropSpot = (activityHours = this.state.activities[0][0].hour) => {
+            console.log("create drop spot");
+
             const start = 8;
 
             const hours = activityHours.split("-");
@@ -96,20 +99,22 @@ class Calendar extends Component {
             const startHour = Number(startTime[0]);
             const startMin = Number(startTime[1]);
 
-
             const topMin = startMin / 60 / .25;
-            console.log(topMin);
             let dropSpotTime = String(startHour - start) + topMin;
 
             dropSpotTime = String(dropSpotTime);
+            console.log("'v got dropSpot")
             return dropSpotTime
         };
+
         this.getDropSpots = () => {
+            console.log("create drop spots", this.state.activities);
+
             this.state.activities.forEach((day, dayI) => {
                 day.forEach(activity => {
-                    if (!activity.dropSpot) {
-                        activity.dropSpot = "id" + dayI + this.getDropSpot(activity.hour);
-                    }
+
+                    activity.dropSpot = "id" + dayI + this.getDropSpot(activity.hour);
+
                 });
             })
 
@@ -129,6 +134,7 @@ class Calendar extends Component {
         };
 
         this.createDropElements = (propsHours = this.hours) => {
+            console.log("create drops ele");
             this.getDropSpots();
             const newDrops = [];
             for (let dI = 0; dI < 7; dI++) {
@@ -145,10 +151,12 @@ class Calendar extends Component {
                             }
                         })
 
+
+
                         newDropsDay.push(
                             <div onDrop={this.handleDropActivity} onDragOver={this.handleDragOverActivity} className="main__drop" id={id} key={id}>
-                                {suitableSpot
-                                    ? <Activity handleDragStart={this.handleDragStartActivity} id={"acti" + id} key={"acti" + id} activity={suitableSpot}></Activity>
+                                {suitableSpot ?
+                                    <Activity handleDragStart={this.handleDragStartActivity} id={"acti" + id} key={"acti" + id} activity={suitableSpot}></Activity>
                                     : null}
                             </div>
                         )
@@ -163,36 +171,57 @@ class Calendar extends Component {
             e.preventDefault();
             var data = e.dataTransfer.getData("text");
             const draggedElement = document.getElementById(data);
-            if (draggedElement) {
-                draggedElement.style.top = "0px";
-                e.target.appendChild(draggedElement);
+            const parent = e.target;
+            if (draggedElement && !parent.childNodes[0]) {
+                parent.appendChild(draggedElement);
+                const draggedElementDropSpot = draggedElement.id.slice(4);
+                this.state.activities.forEach(day => {
+                    day.forEach(activity => {
+                        if (activity.dropSpot === draggedElementDropSpot) {
+                            // activity.dropSpot = parent.id;
+                            // draggedElement.id = "acti" + parent.id;
+                            // activity.hour = "";
+                            // draggedElement.childNodes[0].innerText = 
+                            console.log(draggedElement.childNodes[0]);
+                            // this.dropElements = this.createDropElements();
+                            // this.dropElements = this.createDropElements();
+                            // this.setState({
+                            //     activities: this.state.activities
+                            // })
+                        }
+                    });
+                });
             }
             document.querySelectorAll(".main__drop").forEach(drop => {
                 drop.classList.remove("main__drop--active")
             })
+
         };
+
         this.handleDragOverActivity = (e) => {
             e.preventDefault();
         };
+
         this.handleDragStartActivity = (e) => {
             e.dataTransfer.setData("text", e.target.id);
-            console.log(e.target.id, "ID");
             document.querySelectorAll(".main__drop").forEach(drop => {
                 drop.classList.add("main__drop--active")
             })
         };
+
         this.handleBtnAddTask = () => {
             this.state.activities[3].push({
-                hour: "08:00-09:00",
+                hour: "08:30-09:30",
                 txt: "Metzger",
                 bgc: "var(--blueLight)",
                 like: true,
             });
-            const activities = this.state.activities;
 
-            this.setState({
-                activities: activities
-            });
+            this.dropElements = this.createDropElements();
+        };
+
+        this.handleSave = () => {
+            console.log("fire!!!");
             this.dropElements = this.createDropElements();
         }
     }
@@ -203,17 +232,12 @@ class Calendar extends Component {
         this.dropElements = this.createDropElements();
         this.hoursElementsDescribed = this.createHours(true);
     }
-    componentDidMount() {
 
-    }
-    componentDidUpdate() {
-        console.log("update calendar");
 
-    }
 
 
     render() {
-
+        console.log("render calendar");
         return (
             <div className="modal">
                 <div className="calendar">
@@ -232,7 +256,7 @@ class Calendar extends Component {
                             </span>
                         </div>
                         <div className="header__tools flexCol">
-                            <a href="/#" className="header__tool">
+                            <a onClick={this.handleSave} href="/#" className="header__tool">
                                 <i className="fas fa-text-width"></i>
                             </a>
                             <a href="/#" className="header__tool">
