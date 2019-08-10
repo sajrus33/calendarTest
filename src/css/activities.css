@@ -13,8 +13,9 @@
   position: relative;
   width: 100%;
   height: calc(130px / 4);
-  max-height: calc(130px/4)
-  
+  max-height: calc(130px/4);
+  color:transparent;
+  user-select: none;
 }
 .main__drop--active{
   box-shadow: 0px 5px 5px -2px #888;
@@ -24,6 +25,7 @@
 
 .main__activity {
   position: absolute;
+  top:-1px;
   left: 2px;
   right: 1px;
 
@@ -34,6 +36,7 @@
   
   border: 1px white solid;
   z-index: 2;
+  color: #000;
 
   user-select: none;
 }

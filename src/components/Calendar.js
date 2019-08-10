@@ -13,114 +13,114 @@ class Calendar extends Component {
         super(props)
         this.state = {
             daysActivities: [],
-            activities: [
-                [
-                    {
-                        hour: "08:00-09:00",
-                        txt: "Metzger",
-                        bgc: "var(--blueLight)",
-                        like: true,
-                    },
-                    {
-                        hour: "09:15-10:30",
-                        txt: "Metzger",
-                        bgc: "var(--orange)",
-                        unlike: true
-                    },
-                    {
-                        hour: "10:45-11:00",
-                        txt: "Mittermeier",
-                        bgc: "var(--blue)",
-                    },
-                    {
-                        hour: "11:45-13:30",
-                        txt: "Mittermeier",
-                        bgc: "var(--blue)",
-                    }
-                ],
-                [
-                    {
-                        hour: "09:00-09:30",
-                        txt: "1",
-                        bgc: "var(--blueLight)",
-                        like: true,
-                    },
-                    {
-                        hour: "09:30-10:30",
-                        txt: "2",
-                        bgc: "var(--orange)",
-                        unlike: true
-                    },
-                    {
-                        hour: "10:45-11:00",
-                        txt: "3",
-                        bgc: "var(--blue)",
-                    },
-                    {
-                        hour: "11:45-13:30",
-                        txt: "4",
-                        bgc: "var(--blue)",
-                    }
-                ],
-                [
-                    {
-                        hour: "11:00-19:30",
-                        txt: "1",
-                        bgc: "var(--blueLight)",
-                        unlike: true,
-                    },
-                    {
-                        hour: "09:15-10:30",
-                        txt: "2",
-                        bgc: "var(--orange)",
-                        like: true
-                    }
-                ],
-                [],
-                [],
-                [],
-                []
-            ]
         };
         this.hours = [
             "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
             "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"
         ];
-        console.log("constructor");
-        this.getDropSpot = (activityHours = this.state.activities[0][0].hour) => {
-            console.log("create drop spot");
+        this.activities = [
+            [
+                {
+                    hour: "08:00-09:00",
+                    txt: "Metzger",
+                    bgc: "var(--blueLight)",
+                    like: true,
+                },
+                {
+                    hour: "09:15-10:30",
+                    txt: "Metzger",
+                    bgc: "var(--orange)",
+                    unlike: true
+                },
+                {
+                    hour: "10:45-11:00",
+                    txt: "Mittermeier",
+                    bgc: "var(--blue)",
+                },
+                {
+                    hour: "11:45-13:30",
+                    txt: "Mittermeier",
+                    bgc: "var(--blue)",
+                }
+            ],
+            [
+                {
+                    hour: "09:00-09:30",
+                    txt: "1",
+                    bgc: "var(--blueLight)",
+                    like: true,
+                },
+                {
+                    hour: "09:30-10:30",
+                    txt: "2",
+                    bgc: "var(--orange)",
+                    unlike: true
+                },
+                {
+                    hour: "10:45-11:00",
+                    txt: "3",
+                    bgc: "var(--blue)",
+                },
+                {
+                    hour: "11:45-13:30",
+                    txt: "4",
+                    bgc: "var(--blue)",
+                }
+            ],
+            [
+                {
+                    hour: "11:00-19:30",
+                    txt: "1",
+                    bgc: "var(--blueLight)",
+                    unlike: true,
+                },
+                {
+                    hour: "09:15-10:30",
+                    txt: "2",
+                    bgc: "var(--orange)",
+                    like: true
+                }
+            ],
+            [],
+            [],
+            [],
+            []
+        ]
 
+        this.getDropSpot = (activityHours) => {
             const start = 8;
-
+            const activityHeight = 130;
             const hours = activityHours.split("-");
-
             const startTime = hours[0].split(":");
-
+            const endTime = hours[1].split(":");
             const startHour = Number(startTime[0]);
+            const endHour = Number(endTime[0]);
             const startMin = Number(startTime[1]);
-
+            const endMin = Number(endTime[1]);
+            let durationHour = Math.abs(startHour - endHour);
+            let durationMin = Math.abs(startMin - endMin);
+            if (endMin - startMin) {
+                durationHour--;
+                durationMin = (60 - startMin) + endMin;
+            }
+            const heightMin = durationMin / 60 * activityHeight;
+            const height = String((durationHour * activityHeight) + heightMin - 1) + "px";
             const topMin = startMin / 60 / .25;
             let dropSpotTime = String(startHour - start) + topMin;
-
             dropSpotTime = String(dropSpotTime);
-            console.log("'v got dropSpot")
-            return dropSpotTime
+            return [dropSpotTime, height]
         };
 
         this.getDropSpots = () => {
-            console.log("create drop spots", this.state.activities);
-
-            this.state.activities.forEach((day, dayI) => {
+            this.activities.forEach((day, dayI) => {
                 day.forEach(activity => {
-
-                    activity.dropSpot = "id" + dayI + this.getDropSpot(activity.hour);
-
+                    const dropSpot = this.getDropSpot(activity.hour);
+                    console.log({ dropSpot })
+                    activity.dropSpot = "id" + dayI + dropSpot[0];
+                    activity.height = dropSpot[1];
                 });
             })
 
-            this.setState({
-                activities: this.state.activities
-            });
         }
 
         this.createHours = (addTxt = false, propsHours = this.hours) => {
@@ -134,27 +134,27 @@ class Calendar extends Component {
         };
 
         this.createDropElements = (propsHours = this.hours) => {
-            console.log("create drops ele");
             this.getDropSpots();
             const newDrops = [];
             for (let dI = 0; dI < 7; dI++) {
                 const newDropsDay = [];
                 propsHours.forEach((hour, hI) => {
-                    for (let nI = 0; nI < 4; nI++) {
-                        const id = "id" + dI + hI + nI;
+                    for (let qI = 0; qI < 4; qI++) {
+                        const id = "id" + dI + hI + qI;
                         let suitableSpot = false;
 
-                        this.state.activities[dI].forEach((dayActivity, aI) => {
+                        this.activities[dI].forEach((dayActivity, aI) => {
                             if (dayActivity.dropSpot === id) {
-                                suitableSpot = this.state.activities[dI][aI];
-
+                                suitableSpot = this.activities[dI][aI];
                             }
                         })
-
-
+                        const dropHour = hour.slice(0, 3);
+                        const dropMin = qI ? qI * 15 : (String(qI) + 0)
+                        const dropTime = `${dropHour}${dropMin}`;
 
                         newDropsDay.push(
                             <div onDrop={this.handleDropActivity} onDragOver={this.handleDragOverActivity} className="main__drop" id={id} key={id}>
+                                {dropTime}
                                 {suitableSpot ?
                                     <Activity handleDragStart={this.handleDragStartActivity} id={"acti" + id} key={"acti" + id} activity={suitableSpot}></Activity>
                                     : null}
@@ -172,26 +172,24 @@ class Calendar extends Component {
             var data = e.dataTransfer.getData("text");
             const draggedElement = document.getElementById(data);
             const parent = e.target;
-            if (draggedElement && !parent.childNodes[0]) {
-                parent.appendChild(draggedElement);
+            if (draggedElement && !parent.childNodes[1]) {
+                // parent.appendChild(draggedElement);
                 const draggedElementDropSpot = draggedElement.id.slice(4);
-                this.state.activities.forEach(day => {
+                this.activities.forEach(day => {
                     day.forEach(activity => {
                         if (activity.dropSpot === draggedElementDropSpot) {
-                            // activity.dropSpot = parent.id;
-                            // draggedElement.id = "acti" + parent.id;
-                            // activity.hour = "";
-                            // draggedElement.childNodes[0].innerText = 
-                            console.log(draggedElement.childNodes[0]);
-                            // this.dropElements = this.createDropElements();
-                            // this.dropElements = this.createDropElements();
-                            // this.setState({
-                            //     activities: this.state.activities
-                            // })
+                            const activityStartTime = parent.childNodes[0].textContent;
+                            const activityEndTime = "10:00";
+                            activity.hour = activityStartTime + "-" + activityEndTime;
+                            console.log(this.activities);
+                            this.setState({
+                                dropElements: this.createDropElements()
+                            });
                         }
                     });
                 });
             }
+
             document.querySelectorAll(".main__drop").forEach(drop => {
                 drop.classList.remove("main__drop--active")
             })
@@ -210,30 +208,34 @@ class Calendar extends Component {
         };
 
         this.handleBtnAddTask = () => {
-            this.state.activities[3].push({
+            this.activities[3].push({
                 hour: "08:30-09:30",
                 txt: "Metzger",
                 bgc: "var(--blueLight)",
                 like: true,
             });
 
-            this.dropElements = this.createDropElements();
+
+            this.setState({
+                dropElements: this.createDropElements()
+            });
         };
 
         this.handleSave = () => {
-            console.log("fire!!!");
-            this.dropElements = this.createDropElements();
+            this.setState({
+                dropElements: this.createDropElements()
+            });
         }
     }
 
     componentWillMount() {
-        console.log("before mount calendar")
         this.hoursElements = this.createHours(false);
-        this.dropElements = this.createDropElements();
+
+        this.setState({
+            dropElements: this.createDropElements()
+        });
         this.hoursElementsDescribed = this.createHours(true);
     }
-
-
 
 
     render() {
@@ -284,44 +286,44 @@ class Calendar extends Component {
                             </div>
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.dropElements[0]}
+                                    {this.state.dropElements[0]}
                                 </div>
                                 {this.hoursElements}
                             </div>
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.dropElements[1]}
+                                    {this.state.dropElements[1]}
 
                                 </div>
                                 {this.hoursElements}
                             </div>
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.dropElements[2]}
+                                    {this.state.dropElements[2]}
                                 </div>
                                 {this.hoursElements}
                             </div>
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.dropElements[3]}
+                                    {this.state.dropElements[3]}
                                 </div>
                                 {this.hoursElements}
                             </div>
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.dropElements[4]}
+                                    {this.state.dropElements[4]}
                                 </div>
                                 {this.hoursElements}
                             </div>
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.dropElements[5]}
+                                    {this.state.dropElements[5]}
                                 </div>
                                 {this.hoursElements}
                             </div>
                             <div className="main__day ">
                                 <div className="main__wrapper--activity">
-                                    {this.dropElements[6]}
+                                    {this.state.dropElements[6]}
                                 </div>
                                 {this.hoursElements}
                             </div>
