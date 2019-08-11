@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.30d971d3.chunk.css",
-    "main.js": "/static/js/main.802ecc88.chunk.js",
-    "main.js.map": "/static/js/main.802ecc88.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/css/2.e6ae24df.chunk.css": "/static/css/2.e6ae24df.chunk.css",
-    "static/js/2.28e9ae57.chunk.js": "/static/js/2.28e9ae57.chunk.js",
-    "static/js/2.28e9ae57.chunk.js.map": "/static/js/2.28e9ae57.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.6dc8214fd8d34ccbb21d26528fe5cad8.js": "/precache-manifest.6dc8214fd8d34ccbb21d26528fe5cad8.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.e6ae24df.chunk.css.map": "/static/css/2.e6ae24df.chunk.css.map",
-    "static/css/main.30d971d3.chunk.css.map": "/static/css/main.30d971d3.chunk.css.map",
-    "static/media/all.css": "/static/media/fa-solid-900.fdc155d5.svg"
+    "main.css": "/calendarTest/static/css/main.0f0bab22.chunk.css",
+    "main.js": "/calendarTest/static/js/main.b665b7f1.chunk.js",
+    "main.js.map": "/calendarTest/static/js/main.b665b7f1.chunk.js.map",
+    "runtime~main.js": "/calendarTest/static/js/runtime~main.4c76dd49.js",
+    "runtime~main.js.map": "/calendarTest/static/js/runtime~main.4c76dd49.js.map",
+    "static/css/2.bf69da99.chunk.css": "/calendarTest/static/css/2.bf69da99.chunk.css",
+    "static/js/2.04783e95.chunk.js": "/calendarTest/static/js/2.04783e95.chunk.js",
+    "static/js/2.04783e95.chunk.js.map": "/calendarTest/static/js/2.04783e95.chunk.js.map",
+    "index.html": "/calendarTest/index.html",
+    "precache-manifest.cc12178c21b6bfc3c6cdbf5a9f24c572.js": "/calendarTest/precache-manifest.cc12178c21b6bfc3c6cdbf5a9f24c572.js",
+    "service-worker.js": "/calendarTest/service-worker.js",
+    "static/css/2.bf69da99.chunk.css.map": "/calendarTest/static/css/2.bf69da99.chunk.css.map",
+    "static/css/main.0f0bab22.chunk.css.map": "/calendarTest/static/css/main.0f0bab22.chunk.css.map",
+    "static/media/all.css": "/calendarTest/static/media/fa-solid-900.fdc155d5.svg"
   }
 }
