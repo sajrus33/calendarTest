@@ -1,4 +1,5 @@
 import React from 'react';
+import "../css/activities.css";
 
 
 const Activity = props => {

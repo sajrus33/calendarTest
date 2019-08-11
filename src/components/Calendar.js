@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import Activity from './Activity';
-
 import "../css/start.css";
 import "../css/header.css";
 import "../css/main.css";
-import "../css/activities.css";
+import Activity from './Activity';
+import Popup from './Popup';
+
+
+
+
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 
@@ -13,7 +16,7 @@ class Calendar extends Component {
         super(props)
         this.state = {
             daysActivities: [],
-            showModal: false
+            showPopup: false
         };
         this.hours = [
             "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
@@ -87,7 +90,6 @@ class Calendar extends Component {
             [],
             []
         ]
-
         this.getDropSpot = (activityHours) => {
             const start = 8;
             const activityHeight = 130;
@@ -167,13 +169,18 @@ class Calendar extends Component {
             return newDrops
         };
 
+
+        /* 
+            HANDLERS
+        */
+
         this.handleDropActivity = (e) => {
             e.preventDefault();
             var data = e.dataTransfer.getData("text");
             const draggedElement = document.getElementById(data);
             const parent = e.target;
 
-            if (draggedElement && !parent.childNodes[1]) {
+            if (draggedElement && !(parent.childNodes.length > 1) && parent.id) {
                 const draggedElementDropSpot = draggedElement.id.slice(4);
                 this.activities.forEach((day, dI) => {
                     day.forEach((activity, aI) => {
@@ -193,7 +200,7 @@ class Calendar extends Component {
                             if (minsEnd >= 60) {
                                 hoursEnd += hoursStart + 1;
                                 minsEnd = minsEnd % 60;
-                                if (minsEnd == 0)
+                                if (minsEnd === 0)
                                     minsEnd = String(minsEnd) + 0;
                             } else {
                                 hoursEnd += hoursStart;
@@ -201,8 +208,8 @@ class Calendar extends Component {
                             const activityEndTime = `${hoursEnd}:${minsEnd}`;
                             activity.hour = activityStartTime + "-" + activityEndTime;
 
-                            const parentDay = parent.id.slice(2, 3)
-                            if (parentDay != dI) {
+                            const parentDay = Number(parent.id.slice(2, 3))
+                            if (parentDay !== dI) {
                                 const transferActivity = activity;
                                 this.activities[dI].splice(aI, 1)
                                 this.activities[parentDay].push(transferActivity);
@@ -235,10 +242,8 @@ class Calendar extends Component {
         };
 
         this.handleBtnAddTask = () => {
-
-
             this.setState({
-                showModal: true,
+                showPopup: true,
             });
         };
 
@@ -247,11 +252,43 @@ class Calendar extends Component {
                 dropElements: this.createDropElements()
             });
         }
+
+        this.handlePopupSubmit = (e) => {
+            e.preventDefault();
+            this.activities[this.selectedDay].push({
+                hour: `${this.selectedHour}:${this.selectedMinute}-13:00`,
+                txt: this.writtenTask,
+                bgc: "var(--blueLight)",
+                like: true,
+            })
+            this.setState({
+                dropElements: this.createDropElements(),
+
+                showPopup: false
+            });
+            console.log(this.writtenTask, this.selectedDay, this.selectedHours, this.selectedMinute);
+        };
+        this.handlePopupTxt = (e) => {
+            const task = e.target.value;
+            this.writtenTask = task;
+        }
+        this.handlePopupSelectD = (e) => {
+            const day = e.target.value;
+            this.selectedDay = day;
+        }
+
+        this.handlePopupSelectH = (e) => {
+            const hour = e.target.value;
+            this.selectedHour = hour;
+        }
+        this.handlePopupSelectM = (e) => {
+            const minute = e.target.value;
+            this.selectedMinute = minute;
+        }
     }
 
     componentWillMount() {
         this.hoursElements = this.createHours(false);
-
         this.setState({
             dropElements: this.createDropElements()
         });
@@ -263,6 +300,14 @@ class Calendar extends Component {
         console.log("render calendar");
         return (
             <div className="modal">
+                {this.state.showPopup
+                    ? <Popup
+                        handleTxt={this.handlePopupTxt.bind(this)}
+                        handleSelectD={this.handlePopupSelectD.bind(this)}
+                        handleSelectH={this.handlePopupSelectH.bind(this)}
+                        handleSelectM={this.handlePopupSelectM.bind(this)}
+                        handleSubmit={this.handlePopupSubmit.bind(this)} >
+                    </Popup> : null}
                 <div className="calendar">
                     <section className="header flexRow">
                         <h4 className="header__h">Terminplaner</h4>

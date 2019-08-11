@@ -5,7 +5,7 @@
     width: 100%;
   
   
-    z-index: 5;
+    z-index: 99;
     background-color: #000;
     animation: slideDown ease-out forwards .4s;
   }
@@ -40,7 +40,17 @@
     margin-top: 30px;
     padding-bottom: 5px;
   }
-  
+  .popup__wrapper--time{
+    width: 60%;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  .popup__colon{
+    color: #60a3bc;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    padding-bottom: 5px;
+  }
   .popup__input {
     position: relative;
     width: 100%;
@@ -91,6 +101,9 @@
         top: -25px;
         font-size: 20px;
     }
+  }
+  .popup__option{
+    background-color: #000;
   }
   .popup__input--submit {
     min-height: 50px;
