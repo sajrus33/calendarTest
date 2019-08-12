@@ -41,9 +41,21 @@
     padding-bottom: 5px;
   }
   .popup__wrapper--time{
+    position: relative;
     width: 60%;
     justify-content: space-between;
     margin-top: 15px;
+  }
+  .popup__span{
+    position: absolute;
+    left: 0px;
+    top: 0;
+    transform: translateX(-150%);
+  color: #fff;
+  margin-top: 30px;
+  padding-bottom: 5px;
+  font-size: 1.9rem;
+
   }
   .popup__colon{
     color: #60a3bc;
@@ -91,7 +103,7 @@
     top: 0;
     left: 0;
     pointer-events: none;
-    font-size: 30px;
+    font-size: 1.9rem;
     text-transform: capitalize;
     color: #fff;
   }

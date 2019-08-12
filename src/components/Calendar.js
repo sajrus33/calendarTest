@@ -254,19 +254,26 @@ class Calendar extends Component {
         }
 
         this.handlePopupSubmit = (e) => {
-            e.preventDefault();
-            this.activities[this.selectedDay].push({
-                hour: `${this.selectedHour}:${this.selectedMinute}-13:00`,
-                txt: this.writtenTask,
-                bgc: "var(--blueLight)",
-                like: true,
-            })
-            this.setState({
-                dropElements: this.createDropElements(),
+            if (this.selectedHourS && this.selectedMinuteS && this.selectedHourE && this.selectedMinuteE) {
+                e.preventDefault();
 
-                showPopup: false
-            });
-            console.log(this.writtenTask, this.selectedDay, this.selectedHours, this.selectedMinute);
+                this.activities[this.selectedDay].push({
+                    hour: `${this.selectedHourS}:${this.selectedMinuteS}-${this.selectedHourE}:${this.selectedMinuteE}`,
+                    txt: this.writtenTask,
+                    bgc: "var(--blueLight)",
+                    like: true,
+                });
+                this.selectedHourS = null;
+                this.selectedMinuteS = null;
+                this.selectedHourE = null;
+                this.selectedMinuteE = null;
+
+                this.setState({
+                    dropElements: this.createDropElements(),
+                    showPopup: false
+                });
+            }
+
         };
         this.handlePopupTxt = (e) => {
             const task = e.target.value;
@@ -277,13 +284,21 @@ class Calendar extends Component {
             this.selectedDay = day;
         }
 
-        this.handlePopupSelectH = (e) => {
+        this.handlePopupSelectHS = (e) => {
             const hour = e.target.value;
-            this.selectedHour = hour;
+            this.selectedHourS = hour;
         }
-        this.handlePopupSelectM = (e) => {
+        this.handlePopupSelectMS = (e) => {
             const minute = e.target.value;
-            this.selectedMinute = minute;
+            this.selectedMinuteS = minute;
+        }
+        this.handlePopupSelectHE = (e) => {
+            const hour = e.target.value;
+            this.selectedHourE = hour;
+        }
+        this.handlePopupSelectME = (e) => {
+            const minute = e.target.value;
+            this.selectedMinuteE = minute;
         }
     }
 
@@ -304,8 +319,10 @@ class Calendar extends Component {
                     ? <Popup
                         handleTxt={this.handlePopupTxt.bind(this)}
                         handleSelectD={this.handlePopupSelectD.bind(this)}
-                        handleSelectH={this.handlePopupSelectH.bind(this)}
-                        handleSelectM={this.handlePopupSelectM.bind(this)}
+                        handleSelectHS={this.handlePopupSelectHS.bind(this)}
+                        handleSelectMS={this.handlePopupSelectMS.bind(this)}
+                        handleSelectHE={this.handlePopupSelectHE.bind(this)}
+                        handleSelectME={this.handlePopupSelectME.bind(this)}
                         handleSubmit={this.handlePopupSubmit.bind(this)} >
                     </Popup> : null}
                 <div className="calendar">
