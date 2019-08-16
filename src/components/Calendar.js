@@ -16,7 +16,12 @@ class Calendar extends Component {
         super(props)
         this.state = {
             daysActivities: [],
-            showPopup: false
+            showPopup: false,
+            selectedHourS:null,
+            selectedHourE:null,
+            selectedMinuteS:null,
+            selectedMinuteE:null,
+
         };
         this.hours = [
             "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
@@ -90,217 +95,206 @@ class Calendar extends Component {
             [],
             []
         ]
-        this.getDropSpot = (activityHours) => {
-            const start = 8;
-            const activityHeight = 130;
-            const hours = activityHours.split("-");
-            const startTime = hours[0].split(":");
-            const endTime = hours[1].split(":");
-            const startHour = Number(startTime[0]);
-            const endHour = Number(endTime[0]);
-            const startMin = Number(startTime[1]);
-            const endMin = Number(endTime[1]);
-            let durationHour = Math.abs(startHour - endHour);
-            let durationMin = Math.abs(startMin - endMin);
-            if (endMin - startMin) {
-                durationHour--;
-                durationMin = (60 - startMin) + endMin;
-            }
-            const heightMin = durationMin / 60 * activityHeight;
-            const height = String((durationHour * activityHeight) + heightMin - 1) + "px";
-            const topMin = startMin / 60 / .25;
-            let dropSpotTime = String(startHour - start) + topMin;
-            dropSpotTime = String(dropSpotTime);
-            return [dropSpotTime, height]
-        };
+      
+    }
+    getDropSpot = (activityHours) => {
+        const start = 8;
+        const activityHeight = 130;
+        const hours = activityHours.split("-");
+        const startTime = hours[0].split(":");
 
-        this.getDropSpots = () => {
-            this.activities.forEach((day, dayI) => {
-                day.forEach(activity => {
-                    const dropSpot = this.getDropSpot(activity.hour);
-                    activity.dropSpot = "id" + dayI + dropSpot[0];
-                    activity.height = dropSpot[1];
-                });
-            })
+        const endTime = hours[1].split(":");
+        const startHour = Number(startTime[0]);
 
+        const endHour = Number(endTime[0]);
+        const startMin = Number(startTime[1]);
+        const endMin = Number(endTime[1]);
+        let durationHour = Math.abs(startHour - endHour);
+        let durationMin = Math.abs(startMin - endMin);
+        if (endMin - startMin) {
+            durationHour--;
+            durationMin = (60 - startMin) + endMin;
         }
+        const heightMin = durationMin / 60 * activityHeight;
+        const height = String((durationHour * activityHeight) + heightMin - 1) + "px";
+        const topMin = startMin / 60 / .25;
+        let dropSpotTime = String(startHour - start) + topMin;
+        dropSpotTime = String(dropSpotTime);
+        return [dropSpotTime, height]
+    };
 
-        this.createHours = (addTxt = false, propsHours = this.hours) => {
-            const newHours = [];
-            propsHours.forEach((hour, i) => {
-                newHours.push(
-                    <div key={i} className="main__element main__element--hour">{addTxt ? hour : null}</div>
-                )
+    getDropSpots = () => {
+        this.activities.forEach((day, dayI) => {
+            day.forEach(activity => {
+                const dropSpot = this.getDropSpot(activity.hour);
+                activity.dropSpot = "id" + dayI + dropSpot[0];
+                activity.height = dropSpot[1];
             });
-            return newHours;
-        };
+        })
 
-        this.createDropElements = (propsHours = this.hours) => {
-            this.getDropSpots();
-            const newDrops = [];
-            for (let dI = 0; dI < 7; dI++) {
-                const newDropsDay = [];
-                propsHours.forEach((hour, hI) => {
-                    for (let qI = 0; qI < 4; qI++) {
-                        const id = "id" + dI + hI + qI;
-                        let suitableSpot = false;
+    }
 
-                        this.activities[dI].forEach((dayActivity, aI) => {
-                            if (dayActivity.dropSpot === id) {
-                                suitableSpot = this.activities[dI][aI];
-                            }
-                        })
-                        const dropHour = hour.slice(0, 3);
-                        const dropMin = qI ? qI * 15 : (String(qI) + 0)
-                        const dropTime = `${dropHour}${dropMin}`;
+    createHours = (addTxt = false, propsHours = this.hours) => {
+        const newHours = [];
+        propsHours.forEach((hour, i) => {
+            newHours.push(
+                <div key={i} className="main__element main__element--hour">{addTxt ? hour : null}</div>
+            )
+        });
+        return newHours;
+    };
 
-                        newDropsDay.push(
-                            <div onDrop={this.handleDropActivity} onDragOver={this.handleDragOverActivity} className="main__drop" id={id} key={id}>
-                                {dropTime}
-                                {suitableSpot ?
-                                    <Activity handleDragStart={this.handleDragStartActivity} id={"acti" + id} key={"acti" + id} activity={suitableSpot}></Activity>
-                                    : null}
-                            </div>
-                        )
+    createDropElements = (propsHours = this.hours) => {
+        this.getDropSpots();
+        const newDrops = [];
+        for (let dI = 0; dI < 7; dI++) {
+            const newDropsDay = [];
+            propsHours.forEach((hour, hI) => {
+                for (let qI = 0; qI < 4; qI++) {
+                    const id = "id" + dI + hI + qI;
+                    let suitableSpot = false;
+
+                    this.activities[dI].forEach((dayActivity, aI) => {
+                        if (dayActivity.dropSpot === id) {
+                            suitableSpot = this.activities[dI][aI];
+                        }
+                    })
+                    const dropHour = hour.slice(0, 3);
+                    const dropMin = qI ? qI * 15 : (String(qI) + 0)
+                    const dropTime = `${dropHour}${dropMin}`;
+
+                    newDropsDay.push(
+                        <div onDrop={this.handleDropActivity} onDragOver={this.handleDragOverActivity} className="main__drop" id={id} key={id}>
+                            {dropTime}
+                            {suitableSpot ?
+                                <Activity handleDragStart={this.handleDragStartActivity} id={"acti" + id} key={"acti" + id} activity={suitableSpot}></Activity>
+                                : null}
+                        </div>
+                    )
+                }
+            });
+            newDrops.push(newDropsDay);
+        }
+        return newDrops
+    };
+
+
+    /* 
+        HANDLERS
+    */
+
+    handleDropActivity = (e) => {
+        e.preventDefault();
+        var data = this.state.draggedId;
+        const draggedElement = document.getElementById(data);
+        const parent = e.target;
+
+        if (draggedElement && !(parent.childNodes.length > 1) && parent.id) {
+            const draggedElementDropSpot = draggedElement.id.slice(4);
+            this.activities.forEach((day, dI) => {
+                day.forEach((activity, aI) => {
+                    if (activity.dropSpot === draggedElementDropSpot) {
+                        const activityStartTime = parent.childNodes[0].textContent;
+
+                        const pxI = activity.height.indexOf("px");
+                        const height = activity.height.slice(0, pxI);
+                        let hoursEnd = ((Number(height) + 1) / 32.5) / 4;
+                        let minsEnd = hoursEnd % 1;
+                        hoursEnd = hoursEnd - minsEnd;
+                        minsEnd *= 60;
+                        const hoursStart = Number(activityStartTime.slice(0, 2));
+                        const minsStart = Number(activityStartTime.slice(3));
+
+                        minsEnd += minsStart;
+                        if (minsEnd >= 60) {
+                            hoursEnd += hoursStart + 1;
+                            minsEnd = minsEnd % 60;
+                            if (minsEnd === 0)
+                                minsEnd = String(minsEnd) + 0;
+                        } else {
+                            hoursEnd += hoursStart;
+                        }
+                        const activityEndTime = `${hoursEnd}:${minsEnd}`;
+                        activity.hour = activityStartTime + "-" + activityEndTime;
+
+                        const parentDay = Number(parent.id.slice(2, 3))
+                        if (parentDay !== dI) {
+                            const transferActivity = activity;
+                            this.activities[dI].splice(aI, 1)
+                            this.activities[parentDay].push(transferActivity);
+                        }
+
+                        this.setState({
+                            dropElements: this.createDropElements()
+                        });
+
                     }
                 });
-                newDrops.push(newDropsDay);
-            }
-            return newDrops
-        };
-
-
-        /* 
-            HANDLERS
-        */
-
-        this.handleDropActivity = (e) => {
-            e.preventDefault();
-            var data = e.dataTransfer.getData("text");
-            const draggedElement = document.getElementById(data);
-            const parent = e.target;
-
-            if (draggedElement && !(parent.childNodes.length > 1) && parent.id) {
-                const draggedElementDropSpot = draggedElement.id.slice(4);
-                this.activities.forEach((day, dI) => {
-                    day.forEach((activity, aI) => {
-                        if (activity.dropSpot === draggedElementDropSpot) {
-                            const activityStartTime = parent.childNodes[0].textContent;
-
-                            const pxI = activity.height.indexOf("px");
-                            const height = activity.height.slice(0, pxI);
-                            let hoursEnd = ((Number(height) + 1) / 32.5) / 4;
-                            let minsEnd = hoursEnd % 1;
-                            hoursEnd = hoursEnd - minsEnd;
-                            minsEnd *= 60;
-                            const hoursStart = Number(activityStartTime.slice(0, 2));
-                            const minsStart = Number(activityStartTime.slice(3));
-
-                            minsEnd += minsStart;
-                            if (minsEnd >= 60) {
-                                hoursEnd += hoursStart + 1;
-                                minsEnd = minsEnd % 60;
-                                if (minsEnd === 0)
-                                    minsEnd = String(minsEnd) + 0;
-                            } else {
-                                hoursEnd += hoursStart;
-                            }
-                            const activityEndTime = `${hoursEnd}:${minsEnd}`;
-                            activity.hour = activityStartTime + "-" + activityEndTime;
-
-                            const parentDay = Number(parent.id.slice(2, 3))
-                            if (parentDay !== dI) {
-                                const transferActivity = activity;
-                                this.activities[dI].splice(aI, 1)
-                                this.activities[parentDay].push(transferActivity);
-                            }
-
-                            this.setState({
-                                dropElements: this.createDropElements()
-                            });
-
-                        }
-                    });
-                });
-            }
-
-            document.querySelectorAll(".main__drop").forEach(drop => {
-                drop.classList.remove("main__drop--active")
-            })
-
-        };
-
-        this.handleDragOverActivity = (e) => {
-            e.preventDefault();
-        };
-
-        this.handleDragStartActivity = (e) => {
-            e.dataTransfer.setData("text", e.target.id);
-            document.querySelectorAll(".main__drop").forEach(drop => {
-                drop.classList.add("main__drop--active")
-            })
-        };
-
-        this.handleBtnAddTask = () => {
-            this.setState({
-                showPopup: true,
-            });
-        };
-
-        this.handleSave = () => {
-            this.setState({
-                dropElements: this.createDropElements()
             });
         }
 
-        this.handlePopupSubmit = (e) => {
-            if (this.selectedHourS && this.selectedMinuteS && this.selectedHourE && this.selectedMinuteE) {
-                e.preventDefault();
+        document.querySelectorAll(".main__drop").forEach(drop => {
+            drop.classList.remove("main__drop--active")
+        })
 
-                this.activities[this.selectedDay].push({
-                    hour: `${this.selectedHourS}:${this.selectedMinuteS}-${this.selectedHourE}:${this.selectedMinuteE}`,
-                    txt: this.writtenTask,
-                    bgc: "var(--blueLight)",
-                    like: true,
-                });
-                this.selectedHourS = null;
-                this.selectedMinuteS = null;
-                this.selectedHourE = null;
-                this.selectedMinuteE = null;
+    };
 
-                this.setState({
-                    dropElements: this.createDropElements(),
-                    showPopup: false
-                });
-            }
+    handleDragOverActivity = (e) => {
+        e.preventDefault();
+    };
 
-        };
-        this.handlePopupTxt = (e) => {
-            const task = e.target.value;
-            this.writtenTask = task;
-        }
-        this.handlePopupSelectD = (e) => {
-            const day = e.target.value;
-            this.selectedDay = day;
-        }
+    handleDragStartActivity = (e) => {
+        this.setState({
+            draggedId:e.target.id
+        })
+        document.querySelectorAll(".main__drop").forEach(drop => {
+            drop.classList.add("main__drop--active")
+        })
+    };
 
-        this.handlePopupSelectHS = (e) => {
-            const hour = e.target.value;
-            this.selectedHourS = hour;
-        }
-        this.handlePopupSelectMS = (e) => {
-            const minute = e.target.value;
-            this.selectedMinuteS = minute;
-        }
-        this.handlePopupSelectHE = (e) => {
-            const hour = e.target.value;
-            this.selectedHourE = hour;
-        }
-        this.handlePopupSelectME = (e) => {
-            const minute = e.target.value;
-            this.selectedMinuteE = minute;
-        }
+    handleBtnAddTask = () => {
+        this.setState({
+            showPopup: true,
+        });
+    };
+
+    handleSave = () => {
+        this.setState({
+            dropElements: this.createDropElements()
+        });
     }
+
+    handlePopupSubmit = (e) => {
+        if (this.state.selectedHourS && this.state.selectedMinuteS && this.state.selectedHourE && this.state.selectedMinuteE && this.state.writtenTask) {
+            e.preventDefault();
+
+            this.activities[this.state.selectedDay].push({
+                hour: `${this.state.selectedHourS}:${this.state.selectedMinuteS}-${this.state.selectedHourE}:${this.state.selectedMinuteE}`,
+                txt: this.state.writtenTask,
+                bgc: "var(--blueLight)",
+                like: true,
+            });
+
+            
+
+            this.setState({
+                dropElements: this.createDropElements(),
+                showPopup: false,
+                selectedHourS : null,
+            selectedMinuteS : null,
+            selectedHourE : null,
+            selectedMinuteE : null
+            });
+        }
+    };
+
+    handlePopupInputs = e => {
+        this.setState({
+          a: this.a.value,
+          b: this.refs.b.refs.input.value
+        })
+      };
+
 
     componentWillMount() {
         this.hoursElements = this.createHours(false);
