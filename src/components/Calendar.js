@@ -12,91 +12,90 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 
 class Calendar extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            daysActivities: [],
-            showPopup: false,
-            selectedHourS:null,
-            selectedHourE:null,
-            selectedMinuteS:null,
-            selectedMinuteE:null,
 
-        };
-        this.hours = [
-            "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
-            "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"
-        ];
-        this.activities = [
-            [
-                {
-                    hour: "08:00-09:00",
-                    txt: "Metzger",
-                    bgc: "var(--blueLight)",
-                    like: true,
-                },
-                {
-                    hour: "09:15-10:30",
-                    txt: "Metzger",
-                    bgc: "var(--orange)",
-                    unlike: true
-                },
-                {
-                    hour: "10:45-11:00",
-                    txt: "Mittermeier",
-                    bgc: "var(--blue)",
-                },
-                {
-                    hour: "11:45-13:30",
-                    txt: "Mittermeier",
-                    bgc: "var(--blue)",
-                }
-            ],
-            [
-                {
-                    hour: "09:00-09:30",
-                    txt: "1",
-                    bgc: "var(--blueLight)",
-                    like: true,
-                },
-                {
-                    hour: "09:30-10:30",
-                    txt: "2",
-                    bgc: "var(--orange)",
-                    unlike: true
-                },
-                {
-                    hour: "10:45-11:00",
-                    txt: "3",
-                    bgc: "var(--blue)",
-                },
-                {
-                    hour: "11:45-13:30",
-                    txt: "4",
-                    bgc: "var(--blue)",
-                }
-            ],
-            [
-                {
-                    hour: "11:00-19:30",
-                    txt: "1",
-                    bgc: "var(--blueLight)",
-                    unlike: true,
-                },
-                {
-                    hour: "09:15-10:30",
-                    txt: "2",
-                    bgc: "var(--orange)",
-                    like: true
-                }
-            ],
-            [],
-            [],
-            [],
-            []
-        ]
-      
-    }
+    state = {
+        daysActivities: [],
+        showPopup: false,
+        selectedDay: null,
+        selectedHourS: null,
+        selectedHourE: null,
+        selectedMinuteS: null,
+        selectedMinuteE: null,
+        selectedTxt: null
+    };
+    hours = [
+        "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
+        "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"
+    ];
+    activities = [
+        [
+            {
+                hour: "08:00-09:00",
+                txt: "Metzger",
+                bgc: "var(--blueLight)",
+                like: true,
+            },
+            {
+                hour: "09:15-10:30",
+                txt: "Metzger",
+                bgc: "var(--orange)",
+                unlike: true
+            },
+            {
+                hour: "10:45-11:00",
+                txt: "Mittermeier",
+                bgc: "var(--blue)",
+            },
+            {
+                hour: "11:45-13:30",
+                txt: "Mittermeier",
+                bgc: "var(--blue)",
+            }
+        ],
+        [
+            {
+                hour: "09:00-09:30",
+                txt: "1",
+                bgc: "var(--blueLight)",
+                like: true,
+            },
+            {
+                hour: "09:30-10:30",
+                txt: "2",
+                bgc: "var(--orange)",
+                unlike: true
+            },
+            {
+                hour: "10:45-11:00",
+                txt: "3",
+                bgc: "var(--blue)",
+            },
+            {
+                hour: "11:45-13:30",
+                txt: "4",
+                bgc: "var(--blue)",
+            }
+        ],
+        [
+            {
+                hour: "11:00-19:30",
+                txt: "1",
+                bgc: "var(--blueLight)",
+                unlike: true,
+            },
+            {
+                hour: "09:15-10:30",
+                txt: "2",
+                bgc: "var(--orange)",
+                like: true
+            }
+        ],
+        [],
+        [],
+        [],
+        []
+    ]
+
     getDropSpot = (activityHours) => {
         const start = 8;
         const activityHeight = 130;
@@ -245,7 +244,7 @@ class Calendar extends Component {
 
     handleDragStartActivity = (e) => {
         this.setState({
-            draggedId:e.target.id
+            draggedId: e.target.id
         })
         document.querySelectorAll(".main__drop").forEach(drop => {
             drop.classList.add("main__drop--active")
@@ -265,35 +264,40 @@ class Calendar extends Component {
     }
 
     handlePopupSubmit = (e) => {
-        if (this.state.selectedHourS && this.state.selectedMinuteS && this.state.selectedHourE && this.state.selectedMinuteE && this.state.writtenTask) {
-            e.preventDefault();
+        console.log(this.state.selectedDay, this.state.selectedHourS, this.state.selectedMinuteS, this.state.selectedHourE, this.state.selectedMinuteE, this.state.selectedTxt)
 
+        if (this.state.selectedDay && this.state.selectedHourS && this.state.selectedMinuteS && this.state.selectedHourE && this.state.selectedMinuteE && this.state.selectedTxt) {
+            e.preventDefault();
             this.activities[this.state.selectedDay].push({
                 hour: `${this.state.selectedHourS}:${this.state.selectedMinuteS}-${this.state.selectedHourE}:${this.state.selectedMinuteE}`,
-                txt: this.state.writtenTask,
+                txt: this.state.selectedTxt,
                 bgc: "var(--blueLight)",
                 like: true,
             });
 
-            
-
             this.setState({
                 dropElements: this.createDropElements(),
                 showPopup: false,
-                selectedHourS : null,
-            selectedMinuteS : null,
-            selectedHourE : null,
-            selectedMinuteE : null
+                selectedDay: null,
+                selectedHourS: null,
+                selectedMinuteS: null,
+                selectedHourE: null,
+                selectedMinuteE: null,
+                selectedTxt: null
             });
         }
     };
 
-    handlePopupInputs = e => {
+    handlePopupSelects = e => {
         this.setState({
-          a: this.a.value,
-          b: this.refs.b.refs.input.value
+            selectedDay: this.popupRef.refs.day.value,
+            selectedHourS: this.popupRef.refs.hourS.value,
+            selectedHourE: this.popupRef.refs.hourE.value,
+            selectedMinuteS: this.popupRef.refs.minuteS.value,
+            selectedMinuteE: this.popupRef.refs.minuteE.value,
+            selectedTxt: this.popupRef.refs.txt.value,
         })
-      };
+    };
 
 
     componentWillMount() {
@@ -311,12 +315,8 @@ class Calendar extends Component {
             <div className="modal">
                 {this.state.showPopup
                     ? <Popup
-                        handleTxt={this.handlePopupTxt.bind(this)}
-                        handleSelectD={this.handlePopupSelectD.bind(this)}
-                        handleSelectHS={this.handlePopupSelectHS.bind(this)}
-                        handleSelectMS={this.handlePopupSelectMS.bind(this)}
-                        handleSelectHE={this.handlePopupSelectHE.bind(this)}
-                        handleSelectME={this.handlePopupSelectME.bind(this)}
+                        ref={component => this.popupRef = component}
+                        handleSelects={this.handlePopupSelects.bind(this)}
                         handleSubmit={this.handlePopupSubmit.bind(this)} >
                     </Popup> : null}
                 <div className="calendar">

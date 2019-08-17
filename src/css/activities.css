@@ -31,19 +31,18 @@
 
   transform: translate(0px, 2px);
   padding: 1px;
+  padding-bottom: 16px;
   font-size: 0.8rem;
   cursor: pointer;
   
   border: 1px white solid;
   z-index: 2;
   color: #000;
-
   user-select: none;
 }
 .main__activity:hover{
   z-index: 97;
 }
-
 
 .main__activity--blueL {
   background-color: rgba(214, 236, 255, 1);
@@ -59,8 +58,40 @@
 }
 
 .activity__p{
+  min-height: 15px;
+  height: calc(100% - 16px);
   font-size: 0.75rem;
+  margin-right: 2px;
+
+  word-break: break-all;
+  overflow: hidden;
+  overflow-y: scroll;
 }
+.activity__p::-webkit-scrollbar-track
+{
+  border-radius: 10px;
+  background-color: transparent;
+  margin-bottom: 1px;
+}
+
+.activity__p::-webkit-scrollbar
+{
+
+	width: 10px;
+	background-color: transparent;
+}
+
+.activity__p::-webkit-scrollbar-thumb
+{
+
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.activity__p::-webkit-scrollbar-thumb:hover
+{
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
 .activity__ico {
   position: absolute;
   bottom: 0;
@@ -68,6 +99,7 @@
   transform: translate(-1px, -1px);
   font-size: .9rem;
   transition: .2s linear;
+  background-color: inherit;
 
 }
 .activity__ico--delete {
